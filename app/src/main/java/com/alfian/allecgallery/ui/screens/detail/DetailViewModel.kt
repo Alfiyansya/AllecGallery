@@ -2,7 +2,6 @@ package com.alfian.allecgallery.ui.screens.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alfian.allecgallery.domain.model.Bouquet
 import com.alfian.allecgallery.domain.model.OrderBouquet
 import com.alfian.allecgallery.domain.repository.BouquetRepository

@@ -1,7 +1,6 @@
 package com.alfian.allecgallery
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
@@ -24,7 +23,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-//import com.alfian.allecgallery.ui.components.CustomTopBar
 import com.alfian.allecgallery.ui.navigation.NavigationItem
 import com.alfian.allecgallery.ui.navigation.Screen
 import com.alfian.allecgallery.ui.screens.cart.CartScreen

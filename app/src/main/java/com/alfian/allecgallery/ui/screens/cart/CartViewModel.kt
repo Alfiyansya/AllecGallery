@@ -1,6 +1,5 @@
 package com.alfian.allecgallery.ui.screens.cart
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alfian.allecgallery.domain.repository.BouquetRepository

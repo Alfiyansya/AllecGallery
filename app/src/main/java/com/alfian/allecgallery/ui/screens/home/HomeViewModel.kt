@@ -1,8 +1,5 @@
 package com.alfian.allecgallery.ui.screens.home
 
-import android.util.Log
-import androidx.compose.material3.SearchBar
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -10,11 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.alfian.allecgallery.domain.model.OrderBouquet
 import com.alfian.allecgallery.domain.repository.BouquetRepository
 import com.alfian.allecgallery.ui.common.UiState
-import com.alfian.allecgallery.util.SearchBarState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
