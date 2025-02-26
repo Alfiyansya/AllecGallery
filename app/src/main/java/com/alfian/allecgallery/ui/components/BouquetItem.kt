@@ -76,6 +76,9 @@ fun BouquetItem(
 @Composable
 fun BouquetItemPreview(){
     AllecGalleryTheme {
-        BouquetItem(R.drawable.ic_launcher_background,"Bouquet 1",200)
+        BouquetItem(
+            name = "Bouquet Bunga Pink Putih Sedang",
+            image = R.drawable.bouquet2,
+            bouquetPrice = 50000)
     }
 }

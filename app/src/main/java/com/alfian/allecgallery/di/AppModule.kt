@@ -1,6 +1,7 @@
 package com.alfian.allecgallery.di
 
 import com.alfian.allecgallery.data.repository.BouquetRepositoryImpl
+import com.alfian.allecgallery.data.source.local.BouquetDao
 import com.alfian.allecgallery.domain.repository.BouquetRepository
 import dagger.Module
 import dagger.Provides
@@ -14,7 +15,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideBouquetRepository():BouquetRepository{
-        return BouquetRepositoryImpl()
+    fun provideBouquetRepository(bouquetDao: BouquetDao):BouquetRepository{
+        return BouquetRepositoryImpl(bouquetDao = bouquetDao)
     }
 }

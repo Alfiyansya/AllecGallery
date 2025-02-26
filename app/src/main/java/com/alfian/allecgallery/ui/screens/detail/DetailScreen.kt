@@ -55,7 +55,6 @@ fun DetailScreen(
     viewModel.uiState.collectAsStateWithLifecycle(initialValue = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Error -> {
-//                viewModel.getBouquetById(bouquetId)
             }
 
             UiState.Loading -> {
@@ -65,13 +64,14 @@ fun DetailScreen(
             is UiState.Success -> {
                 val data = uiState.data
                 DetailContent(
-                    data.bouquet.image,
-                    data.bouquet.name,
-                    data.bouquet.bouquetPrice,
-                    data.count,
+                    image = data.image,
+                    name = data.name,
+                    bouquetPrice = data.bouquetPrice,
+                    description = data.description,
+                    count = data.count,
                     onBackClick = navigateBack,
                     onAddToCart = { count ->
-                        viewModel.addToCart(data.bouquet, count)
+                        viewModel.addToCart(data, count)
                         navigateToCart()
                     }
                 )
@@ -87,6 +87,7 @@ fun DetailContent(
     @DrawableRes image: Int,
     name: String,
     bouquetPrice: Int,
+    description: String,
     count: Int,
     onBackClick: () -> Unit,
     onAddToCart: (count: Int) -> Unit,
@@ -150,7 +151,7 @@ fun DetailContent(
                     color = MaterialTheme.colorScheme.secondary
                 )
                 Text(
-                    text = stringResource(R.string.lorem_ipsum),
+                    text = description,
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Justify
                 )
@@ -185,10 +186,12 @@ fun DetailContent(
 fun DetailContentPreview() {
     AllecGalleryTheme {
         DetailContent(
-            R.drawable.bouquet2,
-            "Bouquet Bunga Pink",
-            20000,
-            1,
+            name = "Bouquet Bunga Pink Putih Sedang",
+            image = R.drawable.bouquet2,
+            description = "Bouquet Bunga Pink Putih Sedang adalah sebuah buket berukuran sedang" +
+                    " yang berisi beberapa bunga berwarna pink dan putih",
+            bouquetPrice = 50000,
+            count = 0,
             onBackClick = {},
             onAddToCart = {}
         )

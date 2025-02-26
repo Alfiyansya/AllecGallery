@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alfian.allecgallery.domain.model.OrderBouquet
+import com.alfian.allecgallery.domain.model.Bouquet
 import com.alfian.allecgallery.domain.repository.BouquetRepository
 import com.alfian.allecgallery.ui.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,20 +17,16 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: BouquetRepository) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<UiState<List<OrderBouquet>>> =
+    private val _uiState: MutableStateFlow<UiState<List<Bouquet>>> =
         MutableStateFlow(UiState.Loading)
-    val uiState: StateFlow<UiState<List<OrderBouquet>>> = _uiState
-
-//    private var _searchBarState = mutableStateOf(SearchBarState.CLOSED)
-//    val searchBarState: State<SearchBarState> get() = _searchBarState
+    val uiState: StateFlow<UiState<List<Bouquet>>> = _uiState
 
     private val _query = mutableStateOf("")
     val query: State<String> get() = _query
 
-    fun search(newQuery: String) {
-        _query.value = newQuery
+    fun getAllBouquets() {
         viewModelScope.launch {
-            repository.searchBouquet(query = newQuery)
+            repository.getAllBouquets()
                 .catch {
                     _uiState.value = UiState.Error(it.message.toString())
                 }
@@ -38,27 +34,13 @@ class HomeViewModel @Inject constructor(private val repository: BouquetRepositor
                     _uiState.value = UiState.Success(bouquetList)
                 }
         }
-//        _uiState.value = UiState.Success(bouquetList)
-
     }
-//    init {
-//        viewModelScope.launch {
-//            repository.addInitialBouquets()
-//        }
-//    }
-//            repository.getAllBouquets()
-//                .catch {
-//                    _uiState.value = UiState.Error(it.message.toString())
-//                }
-//                .collect{ bouquetList ->
-//                    _uiState.value = UiState.Success(bouquetList)
-//            }
-//        }
-//    }
 
-    fun getAllBouquets() {
+
+    fun search(newQuery: String) {
+        _query.value = newQuery
         viewModelScope.launch {
-            repository.getAllBouquets()
+            repository.searchBouquet(query = newQuery)
                 .catch {
                     _uiState.value = UiState.Error(it.message.toString())
                 }

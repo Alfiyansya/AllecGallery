@@ -84,12 +84,12 @@ private fun CartContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.weight(weight = 1f)
             ) {
-                items(state.orderBouquet, key = {it.bouquet.bouquetId}){item ->
+                items(state.orderBouquet, key = {it.bouquetId}){item ->
                     CartItem(
-                        bouquetId = item.bouquet.bouquetId,
-                        image = item.bouquet.image,
-                        name = item.bouquet.name,
-                        totalPrice = item.bouquet.bouquetPrice * item.count,
+                        bouquetId = item.bouquetId,
+                        image = item.image,
+                        name = item.name,
+                        totalPrice = item.bouquetPrice * item.count,
                         count = item.count,
                         onProductCountChanged = onProductCountChanged
                     )

@@ -23,7 +23,7 @@ class CartViewModel @Inject constructor(private val repository: BouquetRepositor
             repository.getOrderBouquet()
                 .collect{ orderBouquet ->
                     val totalPrice =
-                        orderBouquet.sumOf { it.bouquet.bouquetPrice * it.count }
+                        orderBouquet.sumOf { it.bouquetPrice * it.count }
                     _uiState.value = UiState.Success(CartState(orderBouquet,totalPrice))
                 }
         }
@@ -32,10 +32,8 @@ class CartViewModel @Inject constructor(private val repository: BouquetRepositor
     fun updateOrderBouquet(bouquetId: Long, count: Int){
         viewModelScope.launch {
             repository.updateOrderBouquet(bouquetId, count)
-                .collect{ isUpdated ->
-                    if (isUpdated){
+                .collect{ _ ->
                         getOrderBouquetInCart()
-                    }
                 }
         }
     }

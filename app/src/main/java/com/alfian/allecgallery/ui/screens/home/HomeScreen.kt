@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.alfian.allecgallery.domain.model.OrderBouquet
+import com.alfian.allecgallery.domain.model.Bouquet
 import com.alfian.allecgallery.ui.common.UiState
 import com.alfian.allecgallery.ui.components.BouquetItem
 import com.alfian.allecgallery.ui.components.EmptyContentItem
@@ -45,21 +45,11 @@ fun HomeScreen(
             }
         }
     }
-//    val homeViewModel = hiltViewModel<BouquetViewModel>()
-//    Scaffold(
-//        topBar = {
-//            Text(
-//                text = stringResource(R.string.app_name),
-//                fontSize = 18.sp,
-//                modifier = modifier
-//            )
-//        }
-//    )
 }
 
 @Composable
 fun HomeContent(
-    orderBouquet: List<OrderBouquet>,
+    orderBouquet: List<Bouquet>,
     navigateToDetail: (Long) -> Unit,
     query: String,
     modifier: Modifier = Modifier,
@@ -79,13 +69,13 @@ fun HomeContent(
                 modifier = modifier.testTag("BouquetList")
             ) {
                 items(
-                    orderBouquet, key ={it.bouquet.name}){ data ->
+                    orderBouquet, key ={it.name}){ data ->
                     BouquetItem(
-                        image = data.bouquet.image,
-                        name = data.bouquet.name,
-                        bouquetPrice = data.bouquet.bouquetPrice,
+                        image = data.image,
+                        name = data.name,
+                        bouquetPrice = data.bouquetPrice,
                         modifier = Modifier.clickable {
-                            navigateToDetail(data.bouquet.bouquetId)
+                            navigateToDetail(data.bouquetId)
                         }
                     )
                 }

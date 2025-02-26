@@ -14,7 +14,6 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToLog
 import com.alfian.allecgallery.R
 import com.alfian.allecgallery.data.source.local.FakeBouquetDataSource
-import com.alfian.allecgallery.domain.model.OrderBouquet
 import com.alfian.allecgallery.onNodeWithStringId
 import com.alfian.allecgallery.ui.theme.AllecGalleryTheme
 import org.junit.Before
@@ -25,19 +24,18 @@ class DetailContentTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    private val fakeOrderBouquet = OrderBouquet(
-        bouquet = FakeBouquetDataSource.dummyBouquets[2],
-        count = 0
-    )
+    private val fakeOrderBouquet = FakeBouquetDataSource.dummyBouquets[2]
 
     @Before
     fun setUp(){
         composeTestRule.setContent {
             AllecGalleryTheme {
                 DetailContent(
-                    fakeOrderBouquet.bouquet.image,
-                    fakeOrderBouquet.bouquet.name,
-                    fakeOrderBouquet.bouquet.bouquetPrice,
+                    fakeOrderBouquet.image,
+                    fakeOrderBouquet.name,
+                    fakeOrderBouquet.bouquetPrice,
+                    fakeOrderBouquet.description
+                    ,
                     fakeOrderBouquet.count,
                     onBackClick = {},
                     onAddToCart = {}
@@ -55,11 +53,11 @@ class DetailContentTest {
 
     @Test
     fun detailBouquet_isDisplayed(){
-        composeTestRule.onNodeWithText(fakeOrderBouquet.bouquet.name).assertIsDisplayed()
+        composeTestRule.onNodeWithText(fakeOrderBouquet.name).assertIsDisplayed()
         composeTestRule.onNodeWithText(
             composeTestRule.activity.getString(
                 R.string.bouquet_price,
-                fakeOrderBouquet.bouquet.bouquetPrice
+                fakeOrderBouquet.bouquetPrice
             )
         ).assertIsDisplayed()
     }

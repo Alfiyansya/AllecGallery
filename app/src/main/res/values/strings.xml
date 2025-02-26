@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">AllecGallery</string>
-    <string name="bouquet_price">Rp%d</string>
+    <string name="bouquet_price">Rp%s</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <string name="author_name">Achmad Alfiansyah</string>

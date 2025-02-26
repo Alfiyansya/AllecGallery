@@ -116,7 +116,7 @@ fun BottomBar(
             NavigationItem(
                 title = stringResource(R.string.profile),
                 icon = Icons.Default.AccountCircle,
-                screen = Screen.Profile
+                screen = Screen.Profile,
             )
         )
         navigationItems.map { item ->
@@ -124,7 +124,7 @@ fun BottomBar(
                 icon = {
                     Icon(
                         imageVector = item.icon,
-                        contentDescription = item.title
+                        contentDescription = if (item.title == stringResource(R.string.profile)) "about_page" else item.title
                     )
                 },
                 label = { Text(item.title) },

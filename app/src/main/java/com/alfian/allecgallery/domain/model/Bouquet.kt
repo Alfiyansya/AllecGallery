@@ -6,6 +6,6 @@ data class Bouquet(
     val name: String,
     val image: Int,
     val description: String,
-    val bouquetPrice :Int,
+    val bouquetPrice : Int,
     val count: Int = 0
 )
