@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">AllecGallery</string>
+    <string name="bouquet_price">Rp%d</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="author_name">Achmad Alfiansyah</string>
+    <string name="author_email">achmadalfiansyah069@gmail.com</string>
+    <string name="cart">Cart</string>
+    <string name="search_bouquet">Mau cari bouquet apa?</string>
+    <string name="no_data_item">Tidak ada Bouquet yang kamu cari</string>
+    <string name="no_data_in_cart">Tidak ada Bouquet di keranjang</string>
+    <string name="order_button">Order Button</string>
+    <string name="back">Back</string>
+    <string name="minus_symbol">—</string>
+    <string name="plus_symbol">＋</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
+    <string name="add_to_cart">Tambah ke Keranjang : Rp%d</string>
+    <string name="total_order">Total Pesanan: Rp%d</string>
+    <string name="detail_bouquet">Detail Bouquet</string>
 </resources>
