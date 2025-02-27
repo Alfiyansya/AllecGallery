@@ -61,7 +61,7 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(text = name, style = MaterialTheme.typography.titleMedium)
-                Text(text = email, color = Color.White)
+                Text(text = email)
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
