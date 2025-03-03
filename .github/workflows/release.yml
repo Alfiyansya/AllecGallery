@@ -25,23 +25,11 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Decode keystore file
-        run: |
-          echo ${{ secrets.KEYSTORE_FILE }} | base64 --decode > $KEYSTORE_PATH
-
-      - name: Sign APK
-        env:
-          KEYSTORE_PATH: ${{ secrets.KEYSTORE_PATH }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: |
-          ./gradlew assembleRelease
-          echo $KEY_PASSWORD | jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore $KEYSTORE_PATH -storepass $KEYSTORE_PASSWORD -keypass $KEY_PASSWORD app/build/outputs/apk/release/app-release-unsigned.apk $KEY_ALIAS
-          zipalign -v 4 app/build/outputs/apk/release/app-release-unsigned.apk app/build/outputs/apk/release/app-release.apk
-
+      - name: Assemble app debug APK
+        run: bash ./gradlew assembleDebug --stacktrace
+        
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
-          path: app/build/outputs/apk/release/app-release.apk
+          path: app\build\outputs\apk\debug\app-debug.apk
