@@ -59,6 +59,6 @@ jobs:
           GH_TOKEN: ${{ secrets.TOKEN}}
         with:
           title: "New Release"
-          workdir: "app/build/outputs/apk/release/*"
+          workdir: "app/build/outputs/apk/release/"
           tag: "v1.0.0"
           
