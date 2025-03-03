@@ -37,7 +37,10 @@ jobs:
 
       - name: Assemble app debug APK
         run: bash ./gradlew assembleRelease --stacktrace
-
+      - name: Verify APK existence
+        run: |
+          echo "Checking if the APK file exists..."
+          ls -al ./app/build/outputs/apk/release/
       - name: Rename APK 
         run:
           mv "./app/build/outputs/apk/release/app-release.apk" "./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk"
