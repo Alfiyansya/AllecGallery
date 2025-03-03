@@ -27,7 +27,7 @@ jobs:
         
       - name: Generate file name env var
         run: |
-          VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName)
+          VERSION_NAME='testing'
           DATE=$(date +'%d.%m.%Y')
           BRANCH_NAME=${GITHUB_REF##*/}
           MESSAGE=$(cat << EOF
