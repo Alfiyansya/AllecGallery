@@ -24,12 +24,26 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+        
+      - name: Generate file name env var
+        run: |
+          VERSION_NAME=$(${{github.workspace}}/gradlew -q printVersionName)
+          DATE=$(date +'%d.%m.%Y')
+          BRANCH_NAME=${GITHUB_REF##*/}
+          MESSAGE=$(cat << EOF
+          AppName-release-${VERSION_NAME}-${BRANCH_NAME}-${DATE}
+          EOF)
+          echo OUTPUT_NAME=$MESSAGE >> $GITHUB_ENV
 
       - name: Assemble app debug APK
-        run: bash ./gradlew assembleDebug --stacktrace
+        run: bash ./gradlew assembleRelease --stacktrace
+
+      - name: Rename APK 
+        run:
+          mv "./app/build/outputs/apk/release/app-release.apk" "./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk"
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-release.apk
-          path: app\build\outputs\apk\debug\app-debug.apk
+          name: ${{ env.OUTPUT_NAME }}
+          path: app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
