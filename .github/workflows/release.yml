@@ -54,11 +54,13 @@ jobs:
           name: ${{ env.OUTPUT_NAME }}
           path: app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
       - name: Release APK
-        uses: elgohr/Github-Release-Action@v5
-        env:
-          GH_TOKEN: ${{ secrets.TOKEN}}
+        uses: softprops/action-gh-release@v2
         with:
-          title: "v1.0.2"
-          workdir: app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
-          tag: "v1.0.2"
+          generate_release_notes: true
+          files: |
+             app/build/outputs/apk/release/app-release.apk
+          name: "v1.0.3"
+          body_path: "app/build/outputs/apk/release/*"
+          tag_name: "v1.0.3"
+          token: ${{ secrets.TOKEN}}
           
