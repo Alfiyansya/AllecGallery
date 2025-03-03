@@ -58,9 +58,9 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-             app/build/outputs/apk/release/app-release.apk
+             ./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
           name: "v1.0.3"
-          body_path: "app/build/outputs/apk/release/*"
+          body_path: "app/build/outputs/apk/release/"
           tag_name: "v1.0.3"
           token: ${{ secrets.TOKEN}}
           
