@@ -25,6 +25,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      - name: Decode keystore file
+        run: |
+          echo ${{ secrets.KEYSTORE_FILE }} | base64 --decode > $KEYSTORE_PATH
+
       - name: Sign APK
         env:
           KEYSTORE_PATH: ${{ secrets.KEYSTORE_PATH }}
