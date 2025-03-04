@@ -53,13 +53,23 @@ jobs:
         with:
           name: ${{ env.OUTPUT_NAME }}
           path: app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
+
+      - name: Retrieve Version
+        run: |
+          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
+        id: android_version
+
+      - name: Get version
+        run: |
+          echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+
       - name: Release APK
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
           files: |
              ./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
-          name: "v1.0.3"
-          tag_name: "v1.0.3"
+          name: ${{env.version_name}}
+          tag_name: ${{env.version_name}}
           token: ${{ secrets.TOKEN}}
           
