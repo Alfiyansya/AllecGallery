@@ -24,14 +24,23 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
-        
+
+      - name: Retrieve Version
+        run: |
+          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
+        id: android_version
+
+      - name: Get version
+        run: |
+          echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+
       - name: Generate file name env var
         run: |
-          VERSION_NAME='testing'
+          VERSION_NAME=${{env.version_name}}
           DATE=$(date +'%d.%m.%Y')
           BRANCH_NAME=${GITHUB_REF##*/}
           MESSAGE=$(cat << EOF
-          AppName-release-${VERSION_NAME}-${BRANCH_NAME}-${DATE}
+          AllecGallery-release-${VERSION_NAME}-${BRANCH_NAME}-${DATE}
           EOF)
           echo OUTPUT_NAME=$MESSAGE >> $GITHUB_ENV
 
@@ -53,16 +62,6 @@ jobs:
         with:
           name: ${{ env.OUTPUT_NAME }}
           path: app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
-
-      - name: Retrieve Version
-        run: |
-          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
-        id: android_version
-
-      - name: Get version
-        run: |
-          echo "version_name=${{steps.android_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
-
       - name: Release APK
         uses: softprops/action-gh-release@v2
         with:
