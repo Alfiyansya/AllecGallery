@@ -40,34 +40,34 @@ jobs:
           DATE=$(date +'%d.%m.%Y')
           BRANCH_NAME=${GITHUB_REF##*/}
           MESSAGE=$(cat << EOF
-          AllecGallery-release-${VERSION_NAME}-${BRANCH_NAME}-${DATE}
+          AllecGallery-debug-${VERSION_NAME}-${BRANCH_NAME}-${DATE}
           EOF)
           echo OUTPUT_NAME=$MESSAGE >> $GITHUB_ENV
 
       - name: Assemble app debug APK
-        run: bash ./gradlew assembleRelease --stacktrace
+        run: bash ./gradlew assembleDebug --stacktrace
       - name: Verify APK existence
         run: |
           echo "Checking if the APK file exists..."
-          ls -al ./app/build/outputs/apk/release/
+          ls -al ./app/build/outputs/apk/debug/
       - name: Rename APK 
         run:
-          mv "./app/build/outputs/apk/release/app-release-unsigned.apk" "./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk"
+          mv "./app/build/outputs/apk/debug/app-debug.apk" "./app/build/outputs/apk/debug/${{ env.OUTPUT_NAME }}.apk"
       - name: Verify APK existence
         run: |
           echo "Checking if the APK file exists..."
-          ls -al ./app/build/outputs/apk/release/
+          ls -al ./app/build/outputs/apk/debug/
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.OUTPUT_NAME }}
-          path: app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
+          path: app/build/outputs/apk/debug/${{ env.OUTPUT_NAME }}.apk
       - name: Release APK
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
           files: |
-             ./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
+             ./app/build/outputs/apk/debug/${{ env.OUTPUT_NAME }}.apk
           name: ${{env.version_name}}
           tag_name: ${{env.version_name}}
           token: ${{ secrets.TOKEN}}
