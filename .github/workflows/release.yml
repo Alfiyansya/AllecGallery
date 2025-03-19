@@ -31,7 +31,7 @@ jobs:
         run: |
           echo "KEY_BASE64" | base64 --decode > AllecGallery.jks
         env:
-          KEY_BASE64: ${{ secrets.KEY_BASE64 }}
+          KEY_BASE64: ${{ secrets.SIGNINGKEYBASE64 }}
 
       - name: Add path of AllecGallery.jks to local.properties
         run: |
