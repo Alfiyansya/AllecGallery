@@ -1,3 +1,4 @@
+import java.io.DataInputStream
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -27,13 +28,13 @@ android {
     }
     // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
-    val keystorePropertiesFile = rootProject.file("local.properties")
+    val keystorePropertiesFile = project.rootProject.file("local.properties")
 
 // Initialize a new Properties() object called keystoreProperties.
     val keystoreProperties = Properties()
 
 // Load your keystore.properties file into the keystoreProperties object.
-    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+    keystoreProperties.load(DataInputStream(FileInputStream(keystorePropertiesFile)))
     signingConfigs {
         create("release") {
             keyAlias = keystoreProperties["keyAlias"] as String
