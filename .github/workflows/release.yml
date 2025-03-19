@@ -25,6 +25,24 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+
+      - name: Checks
+        run: find . -type f -name "*.apk"
+
+      - uses: r0adkll/sign-android-release@v1
+        name: Signing APK
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEY_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASS }}
+          keyPassword: ${{ secrets.KEYSTORE_PASS }}
+        env:
+          BUILD_TOOLS_VERSION: "35.0.0"
+
       - name: Retrieve Version
         run: |
           echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
@@ -44,24 +62,19 @@ jobs:
           EOF)
           echo OUTPUT_NAME=$MESSAGE >> $GITHUB_ENV
 
-      - name: Assemble app debug APK
-        run: bash ./gradlew assembleRelease --stacktrace
       - name: Verify APK existence
         run: |
           echo "Checking if the APK file exists..."
           ls -al ./app/build/outputs/apk/release/
+
       - name: Rename APK 
         run:
-          mv "./app/build/outputs/apk/release/app-release-unsigned.apk" "./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk"
+          mv "./app/build/outputs/apk/release/app-release.apk" "./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk"
       - name: Verify APK existence
         run: |
           echo "Checking if the APK file exists..."
           ls -al ./app/build/outputs/apk/release/
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.OUTPUT_NAME }}
-          path: app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
+
       - name: Release APK
         uses: softprops/action-gh-release@v2
         with:
@@ -71,4 +84,10 @@ jobs:
           name: ${{env.version_name}}
           tag_name: ${{env.version_name}}
           token: ${{ secrets.TOKEN}}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.OUTPUT_NAME }}
+          path: app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk
           

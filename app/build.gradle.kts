@@ -23,6 +23,9 @@ android {
     }
 
     buildTypes {
+//        getByName("release") {release
+//            signingConfig = signingConfigs.getByName("release")  // Menetapkan signing config untuk build release
+//        }
         release {
             isMinifyEnabled = false
             proguardFiles(
