@@ -25,7 +25,7 @@ jobs:
       - name: add keyAlias
         env:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          run: echo 'keyAlias=${{ secrets.KEY_ALIAS }}' >> ./local.properties
+        run: echo 'keyAlias=${{ secrets.KEY_ALIAS }}' >> ./local.properties
 
       - name: Decrypt Keystore
         run: |
