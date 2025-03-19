@@ -28,10 +28,10 @@ jobs:
         run: echo 'keyAlias=${{ secrets.KEY_ALIAS }}' >> ./local.properties
 
       - name: Decrypt Keystore
-        run: |
-          echo "KEY_BASE64" | base64 --decode > AllecGallery.jks
         env:
           KEY_BASE64: ${{ secrets.SIGNINGKEYBASE64 }}
+        run: |
+          echo "$KEY_BASE64" | base64 --decode > AllecGallery.jks
 
       - name: Add path of AllecGallery.jks to local.properties
         run: |
