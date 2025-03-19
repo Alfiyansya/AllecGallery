@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -20,12 +23,30 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "com.alfian.allecgallery.CustomTestRunner"
+
+    }
+    // Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+    val keystorePropertiesFile = rootProject.file("local.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+    val keystoreProperties = Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+        }
     }
 
     buildTypes {
-//        getByName("release") {release
-//            signingConfig = signingConfigs.getByName("release")  // Menetapkan signing config untuk build release
-//        }
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")  // Menetapkan signing config untuk build release
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
