@@ -65,6 +65,14 @@ jobs:
         run: |
           echo "Checking if the APK file exists..."
           ls -al ./app/build/outputs/apk/release/
+      - name: Rename APK
+        run:
+          mv ".app/build/outputs/apk/release/app-release-unsigned-aligned.apk" "./app/build/outputs/apk/release/${{ env.OUTPUT_NAME }}.apk"
+      - name: Verify APK existence
+        run: |
+          echo "Checking if the APK file exists..."
+          ls -al ./app/build/outputs/apk/release/
+
       - name: Release APK
         uses: softprops/action-gh-release@v2
         id: publish_release
