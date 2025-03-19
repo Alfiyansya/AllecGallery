@@ -21,6 +21,7 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
       - name: add keyAlias
         env:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
@@ -33,7 +34,8 @@ jobs:
           KEY_BASE64: ${{ secrets.KEY_BASE64 }}
 
       - name: Add path of AllecGallery.jks to local.properties
-        run: echo "storeFile=$(pwd)/AllecGallery.jks" >> ./local.properties
+        run: |
+          echo "storeFile=$(pwd)/AllecGallery.jks" >> ./local.properties
 
       - name: add storePassword
         env:
